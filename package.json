@@ -1,0 +1,28 @@
+{
+  "name": "cmsc100project",
+  "version": "1.0.0",
+  "description": "Project for CMSC 100 for 2nd Sem 2015-2016",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carlosofer/CMSC100Project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/carlosofer/CMSC100Project/issues"
+  },
+  "homepage": "https://github.com/carlosofer/CMSC100Project#readme",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "express": "^4.13.4",
+    "method-override": "^2.3.6",
+    "mysql": "^2.10.2",
+    "path": "^0.12.7",
+    "should": "^8.4.0",
+    "should-http": "0.0.4"
+  }
+}
