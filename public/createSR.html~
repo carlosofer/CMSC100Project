@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>SIRS - Create Student Record</title>
+		<meta charset="UTF-8">
+		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="css/materialize.min.css"/>
+		<script type="text/javascript" src="js/jquery-1.12.3.js"></script>
+		<script type="text/javascript" src="js/materialize.min.js"></script>
+	</head>
+	<body style="background-color: #fafafa">
+		<div class="navbar-fixed">
+			<nav>
+				<div class="nav-wrapper">
+				  <a href="" class="brand-logo">SIRS</a>
+				  <ul id="nav-mobile" class="right hide-on-med-and-down">
+					<li class="active"><a href="studentRecords.html">Student Records</a></li>
+					<li><a href="planOfStudy.html">Plan of Study</a></li>
+					<li><a href="grades.html">Grades</a></li>
+					<li><a href="generateLists.html">Generate Lists</a></li>
+					<li><a href="logout.html">Log Out</a></li>
+				  </ul>
+				</div>
+		    </nav>
+		</div>
+		<div class="collection" style=" float: left; width: 25%; margin: 20px 20px 20px 20px; position: fixed;">
+			<a href="createSR.html" data-val="createSR" class="collection-item link active" id="createSR-link">Create Student Record</a>
+			<a href="retrieveSR.html" data-val="retrieveSR" class="collection-item link" id="retrieveSR-link">Retrieve Student Record</a>
+			<a href="searchSR.html" data-val="searchSR" class="collection-item link" id="searchSR-link">Search Student Record</a>
+			<a href="listSR.html" data-val="listSR" class="collection-item link" id="listSR-link">List Student Records</a>
+			<a href="updateSR.html" data-val="updateSR" class="collection-item link" id="updateSR-link">Update Student Record</a>
+			<a href="archiveSR.html" data-val="archiveSR" class="collection-item link" id="archiveSR-link">Archive Student Record</a>
+        </div>
+		<div class="main" style="float: left; height: auto; width: 70%; position:absolute; margin: 10px 10px 10px 28%;">
+			<div id="createSR" class="div" style="background-color: #FFFFFF; padding: 20px; width: auto;">
+				<h4>Create Student Record</h4>
+				<div class="row">
+					<form class="col s12">
+						<div class="row">
+							<div class="input-field col s3">
+								<input id="studentNumber" type="text" class="validate">
+								<label for="studentNumber">Student Number:</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s3">
+								<input id="lastname" type="text" class="validate">
+								<label for="lastname">Last Name:</label>
+							</div>
+							<div class="input-field col s3">
+								<input id="firstname" type="text" class="validate">
+								<label for="firstname">First Name:</label>
+							</div>
+							<div class="input-field col s3">
+								<input id="middlename" type="text" class="validate">
+								<label for="middlename">Middle Name:</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s3">
+								<label for="birthdate">Birth Date:</label><br/>
+								<input id="birthdate" type="date" class="validate">
+							</div>
+							<div class="input-field col s3">
+								<label for="sex">Sex:</label></br>
+								<input name="sex" type="radio" id="sex1"/><label for="sex1">Male</label></br>
+								<input name="sex" type="radio" id="sex2"/><label for="sex2">Female</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s3">
+								<input id="collegeID" type="text" class="validate">
+								<label for="collegeID">College ID:</label>
+							</div>
+							<div class="row">
+								<div class="input-field col s3">
+									<input id="degreeID" type="text" class="validate">
+									<label for="degreeID">Degree ID:</label>
+								</div>
+								<div class="input-field col s3">
+									<input id="major" type="text" class="validate">
+									<label for="major">Major/Specialization:</label>
+								</div>
+								<div class="input-field col s3">
+									<input id="curriculumID" type="text" class="validate">
+									<label for="curriculumID">Curriculum ID:</label>
+								</div>
+							</div>
+						</div>
+						<button class="btn waves-effect waves-light" type="submit" name="action">Submit <i class="material-icons right">send</i></button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

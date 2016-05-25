@@ -1,0 +1,16 @@
+.customBG{
+	/*background-image: url("../images/banner.png");*/
+	
+}
+
+.customBG img{
+	width: 100%;
+	height: 50%;
+	z-index: 1;
+}
+
+.customOverlay{
+	left: 200px;
+	top: 200px;
+	z-index: 0;
+}
