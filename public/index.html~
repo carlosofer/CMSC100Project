@@ -35,7 +35,7 @@
 					<li><a class="center" href="#">Plan of Study</a></li>
 					<li><a class="center" href="#">Grades</a></li>
 					<li><a class="center" href="#">Generate Lists</a></li>
-					<li><a class="center" href="#">Sign out</a></li>
+					<li><a class="modal-trigger" href="#modal1">Sign out</a></li>
 				</ul>
 				<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
 			</div>

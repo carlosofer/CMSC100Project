@@ -5,7 +5,7 @@
 		<meta charset="UTF-8">
 		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link type="text/css" rel="stylesheet" href="css/materialize.min.css"/>
-		<script type="text/javascript" src="js/jquery-1.12.3.js"></script>
+		<script type="text/javascript" src="js/jquery-2.1.4.js"></script>
 		<script type="text/javascript" src="js/materialize.min.js"></script>
 	</head>
 	<body style="background-color: #fafafa">
@@ -23,30 +23,16 @@
 				</div>
 		    </nav>
 		</div>
-		<div class="collection" style=" float: left; width: 25%; margin: 20px 20px 20px 20px; position: fixed;">
+		<div class="collection" style=" float: left; width: 20%; margin: 20px 20px 20px 20px; position: fixed;">
+		    <a href="viewSR.html" data-val="listSR" class="collection-item link" id="listSR-link">View Student Records</a>
 			<a href="createSR.html" data-val="createSR" class="collection-item link" id="createSR-link">Create Student Record</a>
 			<a href="retrieveSR.html" data-val="retrieveSR" class="collection-item link" id="retrieveSR-link">Retrieve Student Record</a>
 			<a href="searchSR.html" data-val="searchSR" class="collection-item link" id="searchSR-link">Search Student Record</a>
-			<a href="listSR.html" data-val="listSR" class="collection-item link" id="listSR-link">List Student Records</a>
-			<a href="updateSR.html" data-val="updateSR" class="collection-item link active" id="updateSR-link">Update Student Record</a>
-			<a href="archiveSR.html" data-val="archiveSR" class="collection-item link" id="archiveSR-link">Archive Student Record</a>
+
         </div>
-		<div class="main" style="float: left; height: auto; width: 70%; position:absolute; margin: 10px 10px 10px 28%;">
+		<div class="main" style="float: left; height: auto; width: 70%; position:absolute; margin: 10px 10px 10px 23%;">
 			<div id="updateSR" class="div" style="background-color: #FFFFFF; padding: 20px; width: auto;">
-				<h4>Update Student Record</h4>
-				<div class="row">
-					<form class="col s12">
-						<div class="row">
-							<div class="input-field col s4">
-								<input id="snumUpdate" type="text" class="validate">
-								<label for="snumUpdate">Student Number:</label>
-							</div>
-							<div class="input-field col s3">
-								<a class="btn waves-effect waves-light"><i class="material-icons right">search</i>Search</a>
-							</div>
-						</div>
-					</form>
-				</div>
+				<h4>View Student Records</h4>
 				<table class="highlight" style="width: 100%;">
 					<thead>
 						<tr>
@@ -58,7 +44,7 @@
 							<th data-field="degreeID">Degree ID</th>
 							<th data-field="major">Major/<br/>Specialization</th>
 							<th data-field="curriculumID">Curriculum ID</th>
-							<th>Action/s</th>
+							<th class="center">Action/s</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -74,6 +60,7 @@
 							<td>None</td>
 							<td>SP/Practicum</td>
 							<td><a class="btn waves-effect waves-light">Update</a></td>
+							<td><a class="btn waves-effect waves-light">Archive</a></td>
 							<!-- update button becomes this when clicked and reverts to update when submit/cancel button is clicked-->
 							<!--
 							<td><a class="btn waves-effect waves-light">Submit</a> <a class="btn waves-effect waves-light">Cancel</a></td>
