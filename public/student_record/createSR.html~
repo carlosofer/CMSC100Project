@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+	<head>
+		<title>SIRS | Create Student Record</title>
+		<meta charset="UTF-8" />
+		<!-- MOBILE SCALING -->
+		<meta name="viewport" content="width=device-width, maximum-scale=1.0, minumum-scale=1.0, initial-scale=1.0" />
+
+		<!-- MATERIALIZE CSS -->
+		<link href="../css/googlecss.css" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<link rel="stylesheet" type="text/css" href="../css/ids.css" />
+
+		<!-- CUSTOM CSS -->
+		<link rel="stylesheet" type="text/css" href="../css/custom.css" />
+		<script src="js/angular.min.js"></script>
+		<script>
+			var app = angular.module("myApp", []);
+
+		    app.controller("myCtrl", function($scope, $http) {
+			   $scope.addStudent = function() {
+				    var data = { 
+                        studentNumber: $scope.studentNumber,
+                        firstName: $scope.firstName,
+                        middleName: $scope.middleName,
+                        lastName: $scope.lastName,
+                        birthDate: $scope.birthDate,
+                        college: $scope.collegeID,
+                        degree: $scope.degreeID,
+                        major: $scope.major,
+                        curriculum: $scope.curriculumID
+                    }
+                    
+				    $http.post('/addStudent', data).then(function(response) {
+                       alert("Successfully added to the database.");
+                    }, function(response) {
+                        $scope.content = "Something went wrong";
+                    });
+			    }; 
+			});
+        </script>
+	</head>
+	<body style="background-color: #fafafa" ng-controller="myCtrl">
+		<!-- NAVIGATION -->
+		<nav role="navigation">
+			<div class="nav-wrapper">
+				<a href="../home.html" class="brand-logo">SIRS</a>
+				
+				<ul class="right hide-on-med-and-down">
+					<li class="active"><a href="viewSR.html">Student Records</a></li>
+					<li><a href="#">Plan of Study</a></li>
+					<li><a href="../grade/createGrade.html">Grades</a></li>
+					<li><a href="../generateLists.html">Generate Lists</a></li>
+					<li><a class="modal-trigger" href="#modal1">Sign out</a></li>
+				</ul>
+				<ul id="nav-mobile" class="side-nav">
+					<li><a class="center" href="viewSR.html">Student Records</a></li>
+					<li><a class="center" href="#">Plan of Study</a></li>
+					<li><a class="center" href="../grade/createGrade.html">Grades</a></li>
+					<li><a class="center" href="../generateLists.html">Generate Lists</a></li>
+					<li><a class="center modal-trigger" href="#modal1">Sign out</a></li>
+				</ul>
+				<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+			</div>
+		</nav>
+
+		<div class="collection" style=" float: left; width: 20%; margin: 20px 20px 20px 20px; position: fixed;">
+		    <a href="viewSR.html" data-val="listSR" class="collection-item link">View Student Records</a>
+			<a href="createSR.html" data-val="createSR" class="collection-item link active">Create Student Record</a>
+			<a href="searchSR.html" data-val="searchSR" class="collection-item link">Search Student Record</a>
+        </div>
+		<div class="main" style="float: left; height: auto; width: 70%; position:absolute; margin: 10px 10px 10px 23%;">
+			<div id="createSR" class="div" style="background-color: #FFFFFF; padding: 20px; width: auto;">
+				<h4>Create Student Record</h4>
+				<div class="row">
+					<form class="col s12">
+						<div class="row">
+							<div class="input-field col s4">
+								<input id="studentNumber" type="text" class="validate" ng-model="studentNumber">
+								<label for="studentNumber">Student Number:</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s4">
+								<input id="lastname" type="text" class="validate" ng-model="lastName">
+								<label for="lastname">Last Name:</label>
+							</div>
+							<div class="input-field col s4">
+								<input id="firstname" type="text" class="validate" ng-model="firstName">
+								<label for="firstname">First Name:</label>
+							</div>
+							<div class="input-field col s4">
+								<input id="middlename" type="text" class="validate" ng-model="middleName">
+								<label for="middlename">Middle Name:</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s4">
+								<input id="birthdate" type="text" class="validate" ng-model="birthDate">
+								<label for="birthdate">Birth Date:</label><br/>
+							</div>
+							<div class="input-field col s4">
+								<input id="curriculumID" type="text" class="validate" ng-model="curriculumID">
+								<label for="curriculumID">Curriculum ID:</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s4">
+								<input id="collegeID" type="text" class="validate" ng-model="collegeID">
+								<label for="collegeID">College ID:</label>
+							</div>
+							<div class="input-field col s4">
+								<input id="degreeID" type="text" class="validate" ng-model="degreeID">
+								<label for="degreeID">Degree ID:</label>
+							</div>
+							<div class="input-field col s4">
+								<input id="major" type="text" class="validate" ng-model="major">
+								<label for="major">Major/Specialization:</label>
+							</div>
+						</div>
+						<button ng-click="addStudent()" class="btn waves-effect waves-light" type="submit" name="action">Submit <i class="material-icons right">send</i></button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal Structures -->
+		<div id="modal1" class="modal">
+			<div class="modal-content">
+				<h4 class="center">Are you sure you want to sign out?</h4>
+				<input type="checkbox" id="test5" /><label for="test5">Yes</label>
+			</div>
+			<div class="modal-footer">
+				<a href="../index.html" class="left btn modal-action modal-close">Proceed</a>
+				<a href="#!" class="right btn modal-action modal-close">Cancel</a>
+			</div>
+		</div>
+
+		<!-- SCRIPTS -->
+		<script src="js/jquery-2.1.4.min.js"></script>
+		<script src="js/materialize.js"></script>
+		<script src="js/init.js"></script>
+		
+		<script type="text/javascript" src="slick/slick.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				//Activate modals
+				$(".button-collapse").sideNav();
+				$('.modal-trigger').leanModal();
+				//Activate side-nav
+				
+			});
+		</script>
+
+	</body>
+</html>

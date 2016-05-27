@@ -1,4 +1,4 @@
-var db = require(__dirname + './../lib/Mysql');
+var db = require(__dirname + '/mysql');
 
 /* Adds a specific grade in the database */
 exports.create = function (req, res, next) {

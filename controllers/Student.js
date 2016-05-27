@@ -1,4 +1,4 @@
-var db = require(__dirname + './../lib/Mysql');
+var db = require(__dirname + '/mysql');
 
 exports.add = function(req, res, next) {
 
@@ -13,15 +13,13 @@ exports.add = function(req, res, next) {
             // Checks if the student already exists
             if (rows.length === 0) {
                 db.query("INSERT INTO student (studentNumber, firstName, " +
-                    "middleName, lastName, birthDate, college, degree, major, curriculum, status) VALUES " +
-                    "(?, ?, ?, ?, STR_TO_DATE(?, '%Y-%m-%d'), ?, ?, ?, ?, ?)",
+                    "middleName, lastName, birthDate, college, degree, major, curriculum) VALUES " +
+                    "(?, ?, ?, ?, STR_TO_DATE(?, '%Y-%m-%d'), ?, ?, ?, ?)",
                     [req.body.studentNumber,req.body.firstName, req.body.middleName, req.body.lastName,
-                    req.body.birthDate, req.body.college, req.body.degree, req.body.major, req.body.curriculum,
-                    req.body.status],
+                    req.body.birthDate, req.body.college, req.body.degree, req.body.major, req.body.curriculum],
                     function (err, rows) {
                         if (err) {
-
-                            return next(err);
+                           res.send('Error while performing Query.');
                         }
 
                         res.send(rows);
