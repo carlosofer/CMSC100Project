@@ -2,6 +2,7 @@
 
 var student = require(__dirname + '/../controllers/Student');
 var grade = require(__dirname + '/../controllers/Grade');
+var pos = require(__dirname + '/../controllers/PlanOfStudy');
 
 module.exports = function(router) {
 
@@ -12,10 +13,13 @@ module.exports = function(router) {
 	router.get('/getStudents', student.retrieve);
 	router.post('/listStudents', student.list);
 	
-	router.post('/addGrade', grade.create);
-	router.post('/getGrade', grade.retrieve);
+	router.get('/getGrades', grade.viewAll);
+	router.post('/createGrade', grade.create);
+	router.post('/retrieveGrade', grade.retrieve);
 	router.post('/updateGrade', grade.update);
-	router.delete('/deleteGrade', grade.remove);
+	router.post('/removeGrade', grade.remove);
+	
+	router.get('/getAllSubjects', pos.getAllSubjects);
 	
 	return router;
 };

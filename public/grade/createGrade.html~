@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html ng-app="myApp">
 	<head>
 		<title>SIRS | Create Grade</title>
@@ -69,7 +68,7 @@
 			</div>
 		</nav>
 
-		<div class="collection" style=" float: left; width: 20%; margin: 20px 20px 20px 20px; position: fixed;">
+		<div class="collection" style=" float: left; width: 17%; margin: 20px 20px 20px 20px; position: fixed;">
 			<a href="createGrade.html" data-val="createGrade" class="collection-item link active" id="createGrade-link">Create Grade</a>
 			<a href="retrieveGrade.html" data-val="retrieveGrade" class="collection-item link" id="retrieveGrade-link">Retrieve Grade</a>
         </div>

@@ -41,7 +41,7 @@ app.controller("myCtrl", function($scope, $http) {
         
 	    $http.post('/addStudent', data).then(function(response) {
            return Materialize.toast("Successfully created student record!", 1000,"",
-            function(){ window.location.href = "/student_record/viewSR.html"; });
+            function(){ window.location.href = "/student_record/student_record.html"; });
         }, function(response) {
             $scope.content = "Something went wrong";
         });
@@ -101,7 +101,7 @@ app.controller("myCtrl", function($scope, $http) {
         
 	    $http.post('/archiveStudent', data).then(function(response) {
            return Materialize.toast("Successfully archived student record!", 1000,"",
-            function(){ window.location.href = "/student_record/viewSR.html"; });
+            function(){ window.location.href = "/student_record/student_record.html"; });
         }, function(response) {
             $scope.content = "Something went wrong";
         });
@@ -144,7 +144,7 @@ app.controller("myCtrl", function($scope, $http) {
         
 	    $http.post('/updateStudent/', data).then(function(response) {
            return Materialize.toast("Successfully updated student record!", 1000,"",
-            function(){ window.location.href = "/student_record/viewSR.html"; });
+            function(){ window.location.href = "/student_record/student_record.html"; });
         }, function(response) {
             $scope.content = "Something went wrong";
         });  

@@ -1,5 +1,20 @@
 var db = require(__dirname + '/mysql');
 
+/* Retrieves all grades */
+exports.viewAll = function(req, res, next) {
+    db.query("SELECT * FROM grade",
+        function (err, rows) {
+            if (err) {
+                return next(err);
+            }
+            if (rows.length === 0) {
+                res.send(404, "Error: Grades not found!");
+            } else {
+                res.send(rows);
+            }
+        });
+}
+
 /* Adds a specific grade in the database */
 exports.create = function (req, res, next) {
      db.query("INSERT INTO grade(year,semester,studentNumber,course,section," + 
@@ -21,26 +36,25 @@ exports.create = function (req, res, next) {
 exports.retrieve = function(req, res, next) {
     var query = "";
     if(req.body.studentNumber != null) {
-        query += " studentNumber = " + req.body.studentNumber;
+        query += " studentNumber like '%" + req.body.studentNumber + "%' ";
     }
     if(req.body.course != null) {
         if(query != "") query += " AND ";
-        query += "AND lastName = " + req.body.course;
+        query += " course like '%" + req.body.course + "%' ";
     }
     if(req.body.section != null) {
         if(query != "") query += " AND ";
-        query += "AND degree = " + req.body.section;
+        query += " section like '%" + req.body.section + "%' ";
     }
     if(req.body.year != null) {
         if(query != "") query += " AND ";
-        query += "AND curriculum = " + req.body.year;
+        query += " year like '%" + req.body.year + "%' ";
     }
     if(req.body.semester != null) {
         if(query != "") query += " AND ";
-        query += "AND curriculum = " + req.body.semester;
+        query += " semester like '%" + req.body.semester + "%' ";
     }
     
-    console.log(query);
     db.query("SELECT * FROM grade WHERE " + query,
         function (err, rows) {
             if (err) {
@@ -59,7 +73,7 @@ exports.update = function (req, res, next) {
     db.query("UPDATE grade SET year = ?, semester = ?, " +
         "studentNumber = ?, course = ?, section = ?, units = ?, " + 
         "grade = ?, remarks = ? WHERE id = ?",
-        [req.body.year, req.body.semester, req.body.studentNumber_new,
+        [req.body.year, req.body.semester, req.body.studentNumber,
         req.body.course, req.body.section, req.body.units, 
         req.body.grade, req.body.remarks, req.body.id],
 
@@ -74,8 +88,8 @@ exports.update = function (req, res, next) {
 
 /* Removes a grade from the database */
 exports.remove = function (req, res, next) {
+    console.log(req.body.id);
     db.query('DELETE FROM grade WHERE id = ?', [req.body.id], 
-        
         function (err, rows) {
             if (err) {
                 return next(err);

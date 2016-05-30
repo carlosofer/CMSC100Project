@@ -26,16 +26,16 @@
 				<a href="../home.html" class="brand-logo">SIRS</a>
 				
 				<ul class="right hide-on-med-and-down">
-					<li class="active"><a href="../student_record/viewSR.html">Student Records</a></li>
-					<li><a href="#">Plan of Study</a></li>
-					<li><a href="../grade/createGrade.html">Grades</a></li>
+					<li class="active"><a href="../student_record/student_record.html">Student Records</a></li>
+					<li><a href="../plan_of_study/plan_of_study.html">Plan of Study</a></li>
+					<li><a href="../grade/grade.html">Grades</a></li>
 					<li><a href="generateLists.html">Generate Lists</a></li>
 					<li><a class="modal-trigger" href="#modal1">Sign out</a></li>
 				</ul>
 				<ul id="nav-mobile" class="side-nav">
-					<li><a class="center" href="../student_record/viewSR.html">Student Records</a></li>
-					<li><a class="center" href="#">Plan of Study</a></li>
-					<li><a class="center" href="../grade/createGrade.html">Grades</a></li>
+					<li><a class="center" href="../student_record/student_record.html">Student Records</a></li>
+					<li><a class="center" href="../plan_of_study/plan_of_study.html">Plan of Study</a></li>
+					<li><a class="center" href="../grade/grade.html">Grades</a></li>
 					<li><a class="center" href="generateLists.html">Generate Lists</a></li>
 					<li><a class="center modal-trigger" href="#sign_out">Sign out</a></li>
 				</ul>
@@ -105,7 +105,6 @@
 		</div>
 
         <div id="add-button-div" class="fixed-action-btn">
-            <!-- Modal Trigger -->
             <a title="Add Student Record" class="btn-floating btn-large waves-effect waves-light btn modal-trigger" href="#add_student">
                 <i id="add-icon" class="material-icons">add</i></a>
             </a>
@@ -117,7 +116,7 @@
         <!-- Modal Structure -->
         <div id="add_student" class="modal">
            <div class="modal-content">
-               <h2>Create Student Record</h2>
+               <h3 class="center">Create Student Record</h3>
                    <div class="input-field">
                        <span>Student Number</span>
                        <input placeholder="" type="text" required="" ng-model="studentNumber"/>
@@ -216,7 +215,7 @@
         <!-- Modal Structure -->
         <div id="edit_student" class="modal">
            <div class="modal-content">
-               <h2>Update Student Record</h2>
+               <h3 class="center">Update Student Record</h3>
                    <div class="input-field">
                        <span>First Name</span>
                        <input placeholder="" type="text" required="" ng-model="firstNameNew" 
@@ -245,12 +244,12 @@
                    <div class="row" style="padding-top:10px;">
                         <div class="col s6">
                           <input value="M" type="radio" id="male_edit" ng-model="sexNew"
-                          ng-init="sexOld = ''" ng-focus="sexold = sexNew"/>
+                          ng-init="sexOld = ''" ng-focus="sexOld = sexNew"/>
                           <label for="male_edit">Male</label>
                         </div>
                         <div class="col s6">
                           <input value="F" type="radio" id="female_edit" ng-model="sexNew"
-                          ng-init="sexOld = ''" ng-focus="sexold = sexNew"/>
+                          ng-init="sexOld = ''" ng-focus="sexOld = sexNew"/>
                           <label for="female_edit">Female</label>
                         </div>
                    </div>
