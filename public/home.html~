@@ -20,15 +20,15 @@
 	<body>
 
 		<!-- NAVIGATION -->
-		<nav role="navigation">
+		<nav role="navigation"'>
 			<div class="nav-wrapper">
 				<a href="home.html" class="brand-logo">SIRS</a>
 				
 				<ul class="right hide-on-med-and-down">
-					<li><a href="viewSR.html">Student Records</a></li>
+					<li><a href="student_record/viewSR.html">Student Records</a></li>
 					<li><a href="#">Plan of Study</a></li>
-					<li><a href="createGrade.html">Grades</a></li>
-					<li><a href="generateLists.html">Generate Lists</a></li>
+					<li><a href="grade/createGrade.html">Grades</a></li>
+					<li><a href="generate/generateLists.html">Generate Lists</a></li>
 					<li><a class="modal-trigger" href="#modal1">Sign out</a></li>
 				</ul>
 				<ul id="nav-mobile" class="side-nav">

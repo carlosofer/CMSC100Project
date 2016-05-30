@@ -11,6 +11,7 @@ module.exports = function(router) {
 	router.post('/addStudent', student.add);
 	router.put('/deleteStudent', student.archive);
 	router.put('/updateStudent', student.edit);
+	router.get('/getStudents', student.view);
 	
 	router.post('/addGrade', grade.create);
 	router.post('/getGrade', grade.retrieve);

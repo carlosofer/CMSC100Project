@@ -2,7 +2,7 @@
 <html>
 
 	<head>
-		<title>SIRS | Generate TCG</title>
+		<title>SIRS | Generate Checklist</title>
 		<meta charset="UTF-8" />
 		<!-- MOBILE SCALING -->
 		<meta name="viewport" content="width=device-width, maximum-scale=1.0, minumum-scale=1.0, initial-scale=1.0" />
@@ -16,12 +16,13 @@
 		<!-- CUSTOM CSS -->
 		<link rel="stylesheet" type="text/css" href="../css/custom.css" />
 	</head>
+
 	<body style="background-color: #fafafa">
 
 		<!-- NAVIGATION -->
 		<nav role="navigation">
 			<div class="nav-wrapper">
-				<a href="../home.html" class="brand-logo">SIRS</a>
+				<a href="home.html" class="brand-logo">SIRS</a>
 				
 				<ul class="right hide-on-med-and-down">
 					<li><a href="../student_record/viewSR.html">Student Records</a></li>
@@ -34,7 +35,7 @@
 					<li><a class="center" href="../student_record/viewSR.html">Student Records</a></li>
 					<li><a class="center" href="#">Plan of Study</a></li>
 					<li><a class="center" href="../grade/createGrade.html">Grades</a></li>
-					<li><a class="center" href="generateLists.html">Generate Lists</a></li>
+					<li ><a class="center" href="generateLists.html">Generate Lists</a></li>
 					<li><a class="center modal-trigger" href="#modal1">Sign out</a></li>
 				</ul>
 				<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -42,17 +43,17 @@
 		</nav>
 
 		<div class="collection" style=" float: left; width: 25%; margin: 20px 20px 20px 20px; position: fixed;">
-			<a href="generateLists.html" data-val="generateTCG" class="collection-item link active" id="generateTCG-link">Generate TCG</a>
-			<a href="generateChecklist.html" data-val="generateChecklist" class="collection-item link" id="generateChecklist-link">Generate Checklist</a>
+			<a href="generateLists.html" data-val="generateTCG" class="collection-item link" id="generateTCG-link">Generate TCG</a>
+			<a href="generateChecklist.html" data-val="generateChecklist" class="collection-item link active" id="generateChecklist-link">Generate Checklist</a>
 			<a href="generateDelinquentStudents.html" data-val="generateDelinquentStudents" class="collection-item link" id="generateDelinquentStudents-link">Generate Delinquent Students</a>
 			<a href="generateHonorStudents.html" data-val="generateHonorStudents" class="collection-item link" id="generateHonorStudents-link">Generate Honor Students</a>
-			<a href="generateGraduatingStudents.html" data-val="generateGraduatingStudents" class="collection-item link" id="generateGraduatingStudents-link">Generate list of graduating students</a>
+			<a href="generateGraduatingStudents.html" data-val="generateGraduatingStudents" class="collection-item link" id="generateGraduatingStudents-link">Generate Graduating Students</a>
         </div>
 
 		<div class="main" style="float: left; height: auto; width: 70%; position:absolute; margin: 10px 10px 10px 28%;">
 
 			<div id="generateTCG" class="div" style="background-color: #FFFFFF; padding: 20px; width:100%;">
-				<h4>Generate TCG</h4>
+				<h4>Generate Checklist</h4>
 
 				<table class="highlight" style="width: 100%;">
 
@@ -103,6 +104,5 @@
 				
 			});
 		</script>
-
 	</body>
 </html>

@@ -2,7 +2,7 @@
 
 <html>
 	<head>
-		<title>SIRS | Create Grade</title>
+		<title>SIRS | Retrieve Grade</title>
 		<meta charset="UTF-8" />
 		<!-- MOBILE SCALING -->
 		<meta name="viewport" content="width=device-width, maximum-scale=1.0, minumum-scale=1.0, initial-scale=1.0" />
@@ -41,12 +41,13 @@
 		</nav>
 
 		<div class="collection" style=" float: left; width: 25%; margin: 20px 20px 20px 20px; position: fixed;">
-			<a href="createGrade.html" data-val="createGrade" class="collection-item link active" id="createGrade-link">Create Grade</a>
-			<a href="retrieveGrade.html" data-val="retrieveGrade" class="collection-item link" id="retrieveGrade-link">Retrieve Grade</a>
+			<a href="createGrade.html" data-val="createGrade" class="collection-item link" id="createGrade-link">Create Grade</a>
+			<a href="retrieveGrade.html" data-val="retrieveGrade" class="collection-item link active" id="retrieveGrade-link">Retrieve Grade</a>
         </div>
+		
 		<div class="main" style="float: left; height: auto; width: 70%; position:absolute; margin: 10px 10px 10px 28%;">
-			<div id="createSR" class="div" style="background-color: #FFFFFF; padding: 20px; width: auto;">
-				<h4>Create Student Grade</h4>
+			<div id="retrieveSR" class="div" style="background-color: #FFFFFF; padding: 20px; width:100%;">
+				<h4>Retrieve Student Grade</h4>
 				<div class="row">
 					<form class="col s12">
 						<div class="row">
@@ -54,8 +55,6 @@
 								<input id="studentNumber" type="text" class="validate">
 								<label for="studentNumber">Student Number:</label>
 							</div>
-						</div>
-						<div class="row">
 							<div class="input-field col s3">
 								<input id="courseCode" type="text" class="validate">
 								<label for="courseCode">Course Code:</label>
@@ -68,45 +67,47 @@
 								<input id="yearTaken" type="text" class="validate">
 								<label for="yearTaken">Year Taken:</label>
 							</div>
-						</div>
-						<div class="row">
 							<div class="input-field col s3">
 								<label for="semesterTaken">Semester Taken:</label><br/>
 								<input name="semester" type="radio" id="sem1"/><label for="sem1">1st Semester</label></br>
 								<input name="semester" type="radio" id="sem2"/><label for="sem2">2nd Semester</label></br>
 							</div>
 							<div class="input-field col s3">
-								<select id="grades" class="validate">
-									<option value="" disabled selected>Grade</option>
-									<option value="1">1.00</option>
-									<option value="2">1.25</option>
-									<option value="3">1.50</option>
-									<option value="4">1.75</option>
-									<option value="5">2.00</option>
-									<option value="6">2.25</option>
-									<option value="7">2.50</option>
-									<option value="8">2.75</option>
-									<option value="9">3.00</option>
-									<option value="10">4.00</option>
-									<option value="11">5.00</option>
-									<option value="12">INC</option>
-									<option value="13">DRP</option>
-								</select>
-								<label for="grade">Grade:</label>
-							</div>
-							<div class="input-field col s3">
-								<label for="remarks">Remarks:</label><br/>
-								<input name="remark" type="radio" id="remark1"/><label for="remark1">Poor Scholastic Performance</label></br>
-								<input name="remark" type="radio" id="remark2"/><label for="remark2">DRP</label></br>
-								<input name="remark" type="radio" id="remark2"/><label for="remark3">Satisfactory</label></br>
+								<a class="btn waves-effect waves-light"><i class="material-icons right">trending_flat</i>Retrieve</a>
 							</div>
 						</div>
-						<button class="btn waves-effect waves-light" type="submit" name="action">Submit <i class="material-icons right">send</i></button>
 					</form>
 				</div>
+				<table class="highlight" style="width: 100%;">
+					<thead>
+						<!-- dynamic row/s will only appear when retrieve button is clicked -->
+						<tr>
+							<th data-field="studentNumber">Student Number</th>
+							<th data-field="courseCode">Course Code</th>
+							<th data-field="section">Section</th>
+							<th data-field="yearTaken">Year Taken</th>
+							<th data-field="semesterTaken">Semester Taken</th>
+							<th data-field="grade">Grade</th>
+							<th data-field="remarks">Remarks</th>
+							<th data-field="actions"><p class="right">Actions</p></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>2000-12345</td>
+							<td>CMSC 100</td>
+							<td>UV-3L</td>
+							<td>2015</td>
+							<td>1st Semester</td>
+							<td>1.00</td>
+							<td>DRP</td>
+							<td><a class="btn waves-effect waves-light">Update</a></td>
+							<td><a class="btn waves-effect waves-light">Remove</a></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
-		
 		
 		<!-- Modal Structures -->
 		<div id="modal1" class="modal">
@@ -115,22 +116,21 @@
 				<input type="checkbox" id="test5" /><label for="test5">Yes</label>
 			</div>
 			<div class="modal-footer">
-				<a href="../index.html" class="left btn modal-action modal-close">Proceed</a>
+				<a href="index.html" class="left btn modal-action modal-close">Proceed</a>
 				<a href="#!" class="right btn modal-action modal-close">Cancel</a>
 			</div>
 		</div>
 		
 		<!-- SCRIPTS -->
-		<script src="../js/jquery-2.1.4.min.js"></script>
-		<script src="../js/materialize.js"></script>
-		<script src="../js/init.js"></script>
-		<script type="text/javascript" src="../slick/slick.min.js"></script>
+		<script src="js/jquery-2.1.4.min.js"></script>
+		<script src="js/materialize.js"></script>
+		<script src="js/init.js"></script>
+		<script type="text/javascript" src="slick/slick.min.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function(){
 				//Activate modals
 				$(".button-collapse").sideNav();
 				$('.modal-trigger').leanModal();
-				$('select').material_select();
 				//Activate side-nav
 				
 			});

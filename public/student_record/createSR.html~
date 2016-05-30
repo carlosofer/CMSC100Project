@@ -138,11 +138,11 @@
 		</div>
 
 		<!-- SCRIPTS -->
-		<script src="js/jquery-2.1.4.min.js"></script>
-		<script src="js/materialize.js"></script>
-		<script src="js/init.js"></script>
+		<script src="../js/jquery-2.1.4.min.js"></script>
+		<script src="../js/materialize.js"></script>
+		<script src="../js/init.js"></script>
 		
-		<script type="text/javascript" src="slick/slick.min.js"></script>
+		<script type="text/javascript" src="../slick/slick.min.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function(){
 				//Activate modals

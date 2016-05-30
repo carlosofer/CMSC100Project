@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 
-<html>
+<html ng-app="myApp">
 	<head>
 		<title>SIRS | View Student Records</title>
 		<meta charset="UTF-8" />
@@ -15,25 +15,54 @@
 
 		<!-- CUSTOM CSS -->
 		<link rel="stylesheet" type="text/css" href="../css/custom.css" />
+		
+		<script src="../js/angular.min.js"></script>
+		<script>
+			var app = angular.module("myApp", []);
+
+		    app.controller("myCtrl", function($scope, $http) {
+			    $scope.rows = [];
+
+                $http.get("/getStudents")
+                .then(function(response) {
+                    $scope.content = response.data;
+                    
+                   for(var i=0; i<response.data.length; i++) {
+                        $scope.rows.push({
+					        'studentNumber': $scope.content[i].studentNumber,
+					        'firstName': $scope.content[i].firstName,
+					        'middleName': $scope.content[i].middleName,
+					        'lastName': $scope.content[i].lastName,
+					        'birthDate': $scope.content[i].birthDate,
+					        'college': $scope.content[i].college,
+					        'major': $scope.content[i].major,
+					        'curriculum': $scope.content[i].curriculum
+				        });
+                   }
+                }, function(response) {
+                    $scope.content = "Something went wrong";
+                });
+           });
+        </script>
 	</head>
-	<body style="background-color: #fafafa">
+	<body style="background-color: #fafafa" ng-controller="myCtrl">
 		<!-- NAVIGATION -->
 		<nav role="navigation">
 			<div class="nav-wrapper">
 				<a href="../home.html" class="brand-logo">SIRS</a>
 				
 				<ul class="right hide-on-med-and-down">
-					<li class="active"><a href="viewSR.html">Student Records</a></li>
+					<li class="active"><a href="../student_record/viewSR.html">Student Records</a></li>
 					<li><a href="#">Plan of Study</a></li>
 					<li><a href="../grade/createGrade.html">Grades</a></li>
-					<li><a href="../generate/generateLists.html">Generate Lists</a></li>
+					<li><a href="generateLists.html">Generate Lists</a></li>
 					<li><a class="modal-trigger" href="#modal1">Sign out</a></li>
 				</ul>
 				<ul id="nav-mobile" class="side-nav">
-					<li><a class="center" href="viewSR.html">Student Records</a></li>
+					<li><a class="center" href="../student_record/viewSR.html">Student Records</a></li>
 					<li><a class="center" href="#">Plan of Study</a></li>
 					<li><a class="center" href="../grade/createGrade.html">Grades</a></li>
-					<li><a class="center" href="../generate/generateLists.html">Generate Lists</a></li>
+					<li><a class="center" href="generateLists.html">Generate Lists</a></li>
 					<li><a class="center modal-trigger" href="#modal1">Sign out</a></li>
 				</ul>
 				<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -62,22 +91,16 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<!-- dynamic row/s will only appear when search button is clicked -->
-							<!-- text become input fields when update button is clicked -->
-							<td>2000-12345</td>
-							<td>name[0]</td>
-							<td>04/01/1976</td>
-							<td>CAS</td>
-							<td>BSCS</td>
-							<td>None</td>
-							<td>SP/Practicum</td>
+						<tr ng-repeat="rowContent in rows">
+							<td> {{rowContent.studentNumber}} </td>
+							<td> {{rowContent.firstName}} </td>
+							<td> {{rowContent.birthDate | date:'MM-dd-yyyy'}} </td>
+							<td> {{rowContent.college}} </td>
+							<td> {{rowContent.degree}} </td>
+							<td> {{rowContent.major}} </td>
+							<td> {{rowContent.curriculum}} </td>
 							<td><a class="btn waves-effect waves-light">Update</a></td>
 							<td><a class="btn waves-effect waves-light">Archive</a></td>
-							<!-- update button becomes this when clicked and reverts to update when submit/cancel button is clicked-->
-							<!--
-							<td><a class="btn waves-effect waves-light">Submit</a> <a class="btn waves-effect waves-light">Cancel</a></td>
-							-->
 						</tr>
 					</tbody>
 				</table>
