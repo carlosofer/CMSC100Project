@@ -16652,6 +16652,7 @@ CREATE TABLE IF NOT EXISTS `student` (
   `middleName` varchar(256) NOT NULL,
   `lastName` varchar(256) NOT NULL,
   `birthDate` date NOT NULL,
+  `sex` varchar(1) NOT NULL,
   `college` varchar(8) NOT NULL,
   `degree` varchar(32) NOT NULL,
   `major` varchar(32) NOT NULL,

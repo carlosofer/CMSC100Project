@@ -16657,7 +16657,7 @@ CREATE TABLE IF NOT EXISTS `student` (
   `major` varchar(32) NOT NULL,
   `curriculum` varchar(32) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 0,
-  `isArchive` tinyint(1) NOT NULL DEFAULT 0,
+  `isArchive` boolean NOT NULL DEFAULT FALSE,
   PRIMARY KEY (`studentNumber`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

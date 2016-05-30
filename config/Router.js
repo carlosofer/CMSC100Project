@@ -5,13 +5,12 @@ var grade = require(__dirname + '/../controllers/Grade');
 
 module.exports = function(router) {
 
-	router.put('/searchStudent', student.searchByStudentNumber);
-	router.put('/searchStudent', student.searchByName);
-	router.put('/searchStudent', student.search);
+	router.post('/searchStudent', student.search);
 	router.post('/addStudent', student.add);
-	router.put('/deleteStudent', student.archive);
-	router.put('/updateStudent', student.edit);
-	router.get('/getStudents', student.view);
+	router.post('/archiveStudent', student.archive);
+	router.post('/updateStudent', student.edit);
+	router.get('/getStudents', student.retrieve);
+	router.post('/listStudents', student.list);
 	
 	router.post('/addGrade', grade.create);
 	router.post('/getGrade', grade.retrieve);
