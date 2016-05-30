@@ -17,40 +17,41 @@ exports.create = function (req, res, next) {
     });
 } 
 
-/* Searches a grade */
+/* Retrieves a grade */
 exports.retrieve = function(req, res, next) {
-    var column = "", params = "";
-    
-    if(req.body.studentNumber!="") {
-        column = "studentNumber";
-        params = req.body.studentNumber;
-    } else if(req.body.course!="") {
-        column = "course";
-        params = req.body.course;
-    } else if(req.body.section!="") {
-        column = "section";
-        params = req.body.section;
-    } else if(req.body.year!="") {
-        column = "year";
-        params = req.body.year;
-    } else if(req.body.semester!="") {
-        column = "semester";
-        params = req.body.semester;
+    var query = "";
+    if(req.body.studentNumber != null) {
+        query += " studentNumber = " + req.body.studentNumber;
+    }
+    if(req.body.course != null) {
+        if(query != "") query += " AND ";
+        query += "AND lastName = " + req.body.course;
+    }
+    if(req.body.section != null) {
+        if(query != "") query += " AND ";
+        query += "AND degree = " + req.body.section;
+    }
+    if(req.body.year != null) {
+        if(query != "") query += " AND ";
+        query += "AND curriculum = " + req.body.year;
+    }
+    if(req.body.semester != null) {
+        if(query != "") query += " AND ";
+        query += "AND curriculum = " + req.body.semester;
     }
     
-	db.query("SELECT * FROM grade WHERE " + column + " LIKE '%" +
-	        params + "%'",
-		function (err, rows) {
+    console.log(query);
+    db.query("SELECT * FROM grade WHERE " + query,
+        function (err, rows) {
             if (err) {
                 return next(err);
             }
-            
             if (rows.length === 0) {
                 res.send(404, "Error: Grade not found!");
-	        } else {
+            } else {
                 res.send(rows);
-	        }
-	});
+            }
+        });
 }
 
 /* Edits a specific grade in the database */

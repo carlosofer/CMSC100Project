@@ -12,9 +12,9 @@ module.exports = function(router) {
 	router.get('/getStudents', student.retrieve);
 	router.post('/listStudents', student.list);
 	
-	router.post('/addGrade', grade.create);
-	router.post('/getGrade', grade.retrieve);
-	router.put('/updateGrade', grade.update);
+	router.post('/createGrade', grade.create);
+	router.post('/retrieveGrade', grade.retrieve);
+	router.post('/updateGrade', grade.update);
 	router.delete('/deleteGrade', grade.remove);
 	
 	return router;

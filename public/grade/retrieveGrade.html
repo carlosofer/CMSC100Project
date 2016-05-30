@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-
-<html>
+<html ng-ap="myApp">
 	<head>
 		<title>SIRS | Retrieve Grade</title>
 		<meta charset="UTF-8" />
@@ -15,8 +14,58 @@
 
 		<!-- CUSTOM CSS -->
 		<link rel="stylesheet" type="text/css" href="../css/custom.css" />
+		
+		<script src="../js/angular.min.js"></script>
+		<script>
+		    var app = angular.module("myApp", []);
+
+            app.controller("myCtrl", function($scope, $http) {
+                $scope.rows = [];
+                
+                $scope.retrieveGrade = function() {        
+                    alert('haha');
+	                if(($scope.studentNumberS == null) && ($scope.courseS == null) && ($scope.sectionS == null) && ($scope.yearS == null) && ($scope.semesterS == null)){
+	                    return Materialize.toast('Enter in any retrieve field!', 4000);
+	                }
+	                
+                    var data = { 
+                        studentNumber : $scope.studentNumberS,
+                        course : $scope.courseS,
+                        section : $scope.sectionS,
+                        year : $scope.yearS,
+                        semester : $scope.semesterS
+                    }
+                    
+	                $http.post('/retrieveGrade', data).then(function(response) {
+                        if(response.data.length == 0) {
+                             Materialize.toast('No grade found!', 4000);
+                        } else {
+                            $scope.rows = [];
+                            
+                            $scope.content = response.data;
+                        
+                            for(var i=0; i<response.data.length; i++) {
+                                 $scope.rows.push({
+	                                'studentNumber': $scope.content[i].studentNumber,
+                                    'course': $scope.content[i].course,
+                                    'section': $scope.content[i].section,
+                                    'year': $scope.content[i].year,
+                                    'semester': $scope.content[i].semester,
+                                    'units': $scope.content[i].units,
+                                    'grade': $scope.content[i].grade,
+                                    'remarks': $scope.content[i].remarks
+                                 });
+                            }
+                        }
+
+                    }, function(response) {
+                        $scope.content = "Something went wrong";
+                    });
+                };
+            });
+		</script>
 	</head>
-	<body>
+	<body ng-controller="myCtrl">
 		<!-- NAVIGATION -->
 		<nav role="navigation">
 			<div class="nav-wrapper">
@@ -40,40 +89,42 @@
 			</div>
 		</nav>
 
-		<div class="collection" style=" float: left; width: 25%; margin: 20px 20px 20px 20px; position: fixed;">
+		<div class="collection" style=" float: left; width: 17%; margin: 20px 20px 20px 20px; position: fixed;">
 			<a href="createGrade.html" data-val="createGrade" class="collection-item link" id="createGrade-link">Create Grade</a>
 			<a href="retrieveGrade.html" data-val="retrieveGrade" class="collection-item link active" id="retrieveGrade-link">Retrieve Grade</a>
         </div>
 		
-		<div class="main" style="float: left; height: auto; width: 70%; position:absolute; margin: 10px 10px 10px 28%;">
-			<div id="retrieveSR" class="div" style="background-color: #FFFFFF; padding: 20px; width:100%;">
+		<div class="main" style="float: left; height: auto; width: 80%; position:absolute; margin: 10px 10px 10px 20%;">
+			<div id="retrieveSR" class="div" style="background-color: #FFFFFF; padding: 10px; width:100%;">
 				<h4>Retrieve Student Grade</h4>
 				<div class="row">
 					<form class="col s12">
 						<div class="row">
 							<div class="input-field col s3">
-								<input id="studentNumber" type="text" class="validate">
+								<input id="studentNumber" type="text" class="validate" ng-model="studentNumberS"> 
 								<label for="studentNumber">Student Number:</label>
 							</div>
 							<div class="input-field col s3">
-								<input id="courseCode" type="text" class="validate">
+								<input id="courseCode" type="text" class="validate" ng-model="courseS">
 								<label for="courseCode">Course Code:</label>
 							</div>
 							<div class="input-field col s3">
-								<input id="section" type="text" class="validate">
+								<input id="section" type="text" class="validate" ng-model="sectionS">
 								<label for="section">Section:</label>
 							</div>
+					    </div>
+					    <div class="row">
 							<div class="input-field col s3">
-								<input id="yearTaken" type="text" class="validate">
+								<input id="yearTaken" type="text" class="validate" ng-model="yearS">
 								<label for="yearTaken">Year Taken:</label>
 							</div>
 							<div class="input-field col s3">
 								<label for="semesterTaken">Semester Taken:</label><br/>
-								<input name="semester" type="radio" id="sem1"/><label for="sem1">1st Semester</label></br>
-								<input name="semester" type="radio" id="sem2"/><label for="sem2">2nd Semester</label></br>
+								<input ng-model="semester" type="radio" id="sem1" value="1"/><label for="sem1">1st Semester</label></br>
+								<input ng-model="semester" type="radio" id="sem2" value="2"/><label for="sem2">2nd Semester</label></br>
 							</div>
 							<div class="input-field col s3">
-								<a class="btn waves-effect waves-light"><i class="material-icons right">trending_flat</i>Retrieve</a>
+								<a class="btn waves-effect waves-light" ng-click="retrieveGrade()"><i class="material-icons right">trending_flat</i>Retrieve</a>
 							</div>
 						</div>
 					</form>
@@ -87,20 +138,22 @@
 							<th data-field="section">Section</th>
 							<th data-field="yearTaken">Year Taken</th>
 							<th data-field="semesterTaken">Semester Taken</th>
+							<th data-field="units">Units</th>
 							<th data-field="grade">Grade</th>
 							<th data-field="remarks">Remarks</th>
 							<th data-field="actions"><p class="right">Actions</p></th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>2000-12345</td>
-							<td>CMSC 100</td>
-							<td>UV-3L</td>
-							<td>2015</td>
-							<td>1st Semester</td>
-							<td>1.00</td>
-							<td>DRP</td>
+						<tr ng-repeat="rowContent in rows">
+							<td> {{rowContent.studentNumber}}</td>
+							<td> {{rowContent.course}}</td>
+							<td> {{rowContent.section}}</td>
+							<td> {{rowContent.year}}</td>
+							<td> {{rowContent.semester}}</td>
+							<td> {{rowContent.units}}</td>
+							<td> {{rowContent.grade}}</td>
+							<td> {{rowContent.remarks}}</td>
 							<td><a class="btn waves-effect waves-light">Update</a></td>
 							<td><a class="btn waves-effect waves-light">Remove</a></td>
 						</tr>
