@@ -3,6 +3,7 @@ var app = angular.module("myApp", []);
 app.controller("myCtrl", function($scope, $http) {
     $scope.rows = [];
     
+    
     $scope.getAllSubjects = function() {
         var data = { 
             studentNumber: $scope.studentNumberS
@@ -19,6 +20,13 @@ app.controller("myCtrl", function($scope, $http) {
 		            'units': $scope.content[i].units
 	            });
            }
+        }, function(response) {
+            $scope.content = "Something went wrong";
+        });
+        
+        $http.post('/getTotalUnits', data).then(function(response) {
+	       $scope.totalUnits = response.data[0].totalNumOfUnits;
+           
         }, function(response) {
             $scope.content = "Something went wrong";
         });

@@ -58,12 +58,17 @@
 						</div>
 					</form>
 				</div>
+				<div ng-show="rows.length">
+				    <h3 class="center"> Total Number of Units: {{ totalUnits }} </h3>
+				</div>
 				<table class="highlight" style="width: 90%; margin-left: 5%;" ng-show="rows.length">
 					<thead>
 						<tr>
 							<th data-field="year">Year</th>
 							<th data-field="semester">Semester</th>
 							<th data-field="course">Course</th>
+							<th data-field="course">Title</th>
+							<th data-field="course">Units</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -71,6 +76,8 @@
 							<td> {{rowContent.year}}</td>
 							<td> {{rowContent.semester}}</td>
 							<td> {{rowContent.course}}</td>
+							<td> {{rowContent.title}}</td>
+							<td> {{rowContent.units}}</td>
 						</tr>
 					</tbody>
 				</table>

@@ -23,7 +23,7 @@ module.exports = function(router) {
 	router.post('/getAllSubjects', pos.getAllSubjects);
 	
 	router.post('/generateTCG',generate.generateTCG);
-	router.get('/generateGraduating', generate.generateGraduating);
+	router.get('/viewGraduating', generate.viewGraduating);
 	router.post('/generateDelinquent', generate.generateDelinquent);
 	
 	return router;
