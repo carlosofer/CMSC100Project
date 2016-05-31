@@ -1,7 +1,15 @@
-var app = angular.module("myApp", []);
+var app = angular.module("myApp", ['angular.filter']);
 
 app.controller("myCtrl", function($scope, $http) {
     $scope.rows = [];
+    
+    $scope.players = [
+      {name: 'Gene', team: 'alpha'},
+      {name: 'George', team: 'beta'},
+      {name: 'Steve', team: 'gamma'},
+      {name: 'Paula', team: 'beta'},
+      {name: 'Scruath', team: 'gamma'}
+    ];
     
     $scope.getAllSubjects = function() {
         var data = { 
@@ -9,9 +17,7 @@ app.controller("myCtrl", function($scope, $http) {
         }
         
 	    $http.post('/getAllSubjects', data).then(function(response) {
-           alert(response.data[0].course);
 	       $scope.content = response.data;
-        
            for(var i=0; i<response.data.length; i++) {
                 $scope.rows.push({
                     'year': $scope.content[i].year,

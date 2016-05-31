@@ -9,11 +9,8 @@ app.controller("myCtrl", function($scope, $http) {
         }
         
 	    $http.post('/getAllSubjects', data).then(function(response) {
-           alert(response.data[0].course);
 	       $scope.content = response.data;
-        
            for(var i=0; i<response.data.length; i++) {
-                
                 $scope.rows.push({
                     'year': $scope.content[i].year,
                     'semester': $scope.content[i].semester,

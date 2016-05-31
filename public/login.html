@@ -33,7 +33,7 @@
 
 			.inner{
 				padding: 70px;
-				border: 2px solid #e57373;
+				border: 2px solid #1976d2;
 				margin-left: auto;
 				margin-right: auto;
 				width: 50%;
@@ -42,7 +42,7 @@
 
 			.customIn{
 				padding: 10px;
-				border: solid 1px #dcdcdc;
+				border: solid 1px #1976d2;
 				-webkit-transition: box-shadow 0.3s, border 0.3s;
 			}
 		</style>
@@ -55,8 +55,7 @@
 					<h5 class="center">Student Information Retrieval System</h5>
 					<input class="customIn input_text" type="text" placeholder="Username" id="customText"/>
 					<input class="customIn" type="password" placeholder="Password" id="customPass"/>
-					<input type="checkbox" id="test5" /><label for="test5">Keep me signed-in</label>
-					<a class="right btn red lighten-2" onclick="checker()">Proceed</a>
+					<a class="right btn blue darken-2" onclick="checker()">Proceed</a>
 				</div>
 			</div>
 		</div>
@@ -71,11 +70,9 @@
 
 			if(username == "evaluator1" && pass == "secret"){
 				window.location.href="home.html";
-				alert("Authentication succesful!");
 			}else{
 				if(username == "evaluator2" && pass == "mypassword"){
 					window.location.href="home.html";
-					alert("Authentication succesful!");
 				}else{
 					alert("Authentication error!");
 				}

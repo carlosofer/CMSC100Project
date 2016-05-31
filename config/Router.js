@@ -3,6 +3,7 @@
 var student = require(__dirname + '/../controllers/Student');
 var grade = require(__dirname + '/../controllers/Grade');
 var pos = require(__dirname + '/../controllers/PlanOfStudy');
+var generate = require(__dirname + '/../controllers/Generate');
 
 module.exports = function(router) {
 
@@ -20,6 +21,10 @@ module.exports = function(router) {
 	router.post('/removeGrade', grade.remove);
 	
 	router.post('/getAllSubjects', pos.getAllSubjects);
+	
+	router.post('/generateTCG',generate.generateTCG);
+	router.get('/generateGraduating', generate.generateGraduating);
+	router.post('/generateDelinquent', generate.generateDelinquent);
 	
 	return router;
 };
