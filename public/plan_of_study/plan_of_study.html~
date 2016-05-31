@@ -26,7 +26,7 @@
 				
 				<ul class="right hide-on-med-and-down">
 					<li><a href="../student_record/student_record.html">Student Records</a></li>
-					<li><a href="plan_of_study.html">Plan of Study</a></li>
+					<li class="active"><a href="plan_of_study.html">Plan of Study</a></li>
 					<li><a href="../grade/grade.html">Grades</a></li>
 					<li><a href="../generate/generateTCG.html">Generate Lists</a></li>
 					<li><a class="modal-trigger" href="#modal1">Sign out</a></li>

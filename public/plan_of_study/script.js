@@ -14,7 +14,9 @@ app.controller("myCtrl", function($scope, $http) {
                 $scope.rows.push({
                     'year': $scope.content[i].year,
                     'semester': $scope.content[i].semester,
-		            'course': $scope.content[i].course
+		            'course': $scope.content[i].course,
+		            'title': $scope.content[i].title,
+		            'units': $scope.content[i].units
 	            });
            }
         }, function(response) {

@@ -47,7 +47,7 @@
 			<a href="generateChecklist.html" data-val="generateChecklist" class="collection-item link" id="generateChecklist-link">Generate Checklist</a>
 			<a href="generateDelinquentStudents.html" data-val="generateDelinquentStudents" class="collection-item link" id="generateDelinquentStudents-link">Generate Delinquent Students</a>
 			<a href="generateHonorStudents.html" data-val="generateHonorStudents" class="collection-item link" id="generateHonorStudents-link">Generate Honor Students</a>
-			<a href="generateGraduatingStudents.html" data-val="generateGraduatingStudents" class="collection-item link" id="generateGraduatingStudents-link">Generate Graduating Students</a>
+			<a href="viewGraduatingStudents.html" data-val="generateGraduatingStudents" class="collection-item link" id="generateGraduatingStudents-link">Generate Graduating Students</a>
         </div>
 
 		<div class="main" style="float: left; height: auto; width: 70%; position:absolute; margin: 10px 10px 10px 25%;">
@@ -66,7 +66,6 @@
 						</div>
 					</form>
 				</div>
-				<h5 ng-show="show" ng-model="studentNumber">{{studentNumber}}</h5>
 				<table ng-show="show" class="highlight" style="width: 100%;">
 					<thead>
 						<tr>

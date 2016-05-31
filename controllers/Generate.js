@@ -15,8 +15,8 @@ exports.generateTCG = function (req, res, next) {
 } 
 
 /* Generates list of graduating students */
-exports.generateGraduating = function (req, res, next) {
-    db.query("SELECT * FROM student where status = '3'", 
+exports.viewGraduating = function (req, res, next) {
+    db.query("SELECT * FROM student where status = '4'", 
         function (err, rows) {
         if (err) {
             return next(err);
@@ -27,15 +27,28 @@ exports.generateGraduating = function (req, res, next) {
 
 /* Generates list of delinquent students */
 exports.generateDelinquent = function (req, res, next) {
-	db.query("SELECT * FROM grade WHERE year = ? AND semester = ?",
-		[req.body.year, req.body.semester],
+    if(req.body.status == 8) {
+        db.query("SELECT * FROM grade WHERE year = ? AND semester = ? AND status > 4",
+		    [req.body.year, req.body.semester],
 		
-		function (err, rows) {
-            if (err) {
-                return next(err);
-            }
+		    function (err, rows) {
+                if (err) {
+                    return next(err);
+                }
 
-            res.send(rows);
-	});
+                res.send(rows);
+	    });
+    } else {
+	    db.query("SELECT * FROM grade WHERE year = ? AND semester = ? AND status = ?",
+		    [req.body.year, req.body.semester, req.body.status],
+		
+		    function (err, rows) {
+                if (err) {
+                    return next(err);
+                }
+
+                res.send(rows);
+	    });
+	}
 }
 

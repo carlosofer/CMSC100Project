@@ -24,7 +24,7 @@ module.exports = function(router) {
 	
 	router.post('/generateTCG',generate.generateTCG);
 	router.get('/generateGraduating', generate.generateGraduating);
-	router.post('/generateDelinquent', generate.generateDeliquent);
+	router.post('/generateDelinquent', generate.generateDelinquent);
 	
 	return router;
 };
