@@ -16,37 +16,7 @@
 		<!-- CUSTOM CSS -->
 		<link rel="stylesheet" type="text/css" href="../css/custom.css" />
 		<script src="../js/angular.min.js"></script>
-		<script>
-			var app = angular.module("myApp", []);
-			
-			app.controller("myCtrl", function($scope, $http){
-				$scope.rows = [];
-			
-			    $scope.generateDelinquent = function() {
-                    var data = {
-                    	year: $scope.yearS,
-                    	semester: $scope.semesterS,
-                    	status: $scope.statusS
-                    }	
-                    
-				    $http.post("/generateDelinquent")
-				    .then(function(response){
-					    $scope.content = response.data;
-					
-					    for(var i=0; i<response.data.length; i++){
-						    $scope.rows.push({
-							    'studentNumber': $scope.content[i].studentNumber,
-							    'firstName': $scope.content[i].firstName,
-							    'middleName': $scope.content[i].middleName,
-							    'lastName': $scope.content[i].lastName
-						    });
-					    }
-				    }, function(response){
-					    $scope.content = "Error.";
-				    });
-				};
-			});
-		</script>
+
 	</head>
 
 	<body style="background-color: #fafafa" ng-controller="myCtrl">
@@ -112,18 +82,20 @@
 					<thead style="padding: 20px;">
 						<tr>
 							<th data-field="studentnumber">Student Number</th>
+							<th data-field="lastname">Surname</th>
 							<th data-field="firstname">First Name</th>
 							<th data-field="middlename">Middle Name</th>
-							<th data-field="lastname">Last Name</th>
+							<th data-field="status">Status</th>
 						</tr>
 					</thead>
 
 					<tbody>
 						<tr ng-repeat="rowContent in rows">
 							<td>{{rowContent.studentNumber}}</td>
+							<td>{{rowContent.lastName}}</td>
 							<td>{{rowContent.firstName}}</td>
 							<td>{{rowContent.middleName}}</td>
-							<td>{{rowContent.lastName}}</td>
+							<td>{{rowContent.status}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -157,6 +129,63 @@
 				$('select').material_select();
 			});
 		</script>
-
+		<script>
+			var app = angular.module("myApp", []);
+			
+			app.controller("myCtrl", function($scope, $http){
+                $scope.rows = [];		
+                
+			    $scope.getAllStudents = function() {
+			        $scope.rows = [];
+			        
+			        $http.get("/getStudents").then(function(response){
+					    $scope.content = response.data;
+			        
+					    for(var i=0; i<response.data.length; i++){
+					        var data = {
+                            	studentNumber: $scope.content[i].studentNumber,
+                            	year: $scope.yearS,
+                            	semester: $scope.semesterS
+                            }	
+						    var firstName = $scope.content[i].firstName;
+                            var middleName = $scope.content[i].middleName;
+                            var lastName = $scope.content[i].lastName;
+						    $http.post("/generatePercent", data).then(function(response){
+					            $scope.content2 = response.data;
+					            if($scope.content2[0].percent != null) {
+					                if($scope.content2[0].percent <= 0.75 && $scope.content2[0].percent > 0.50) {//warning
+					                   var status = 5;
+					                   var remarks = "Warning";
+					                } else if($scope.content2[0].percent <= 0.50 && $scope.content2[0].percent > 0.25) {
+					                    var status = 6;
+					                    var remarks = "On-Probation";
+					                } else if($scope.content2[0].percent <= 0.25) {
+					                    var status = 7;
+					                    var remarks = "Dismissed";
+					                } else {
+					                    var status = 0;
+					                }
+					                
+                                    if((status == $scope.statusS) || ($scope.statusS == 8 && status != 0)) {
+                                        $scope.rows.push({
+                                        'studentNumber': $scope.content2[0].studentNumber,
+                                        'firstName': firstName,
+                                        'middleName': middleName,
+                                        'lastName': lastName,
+                                        'remarks': remarks
+                                     });   
+                                    }
+					            }
+				            }, function(response){
+                                alert('error');
+					            $scope.content = "Error.";
+				            });
+					    }
+				    }, function(response){
+					    $scope.content = "Error.";
+				    });
+				};
+			});
+		</script>
 	</body>
 </html>

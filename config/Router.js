@@ -31,8 +31,9 @@ module.exports = function(router) {
 	
 	router.post('/generateTCG',generate.generateTCG);
 	router.get('/viewGraduating', generate.viewGraduating);
-	router.post('/generateDelinquent', generate.generateDelinquent);
 	router.post('/generateChecklist', generate.generateChecklist);
+    router.post('/generateDelinquent', generate.generateDelinquent);
+	router.get('/generatePercent', generate.generatePercent);
 	
 	return router;
 };
