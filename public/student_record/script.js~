@@ -40,11 +40,41 @@ app.controller("myCtrl", function($scope, $http) {
         }
         
 	    $http.post('/addStudent', data).then(function(response) {
+	        var data2 = { 
+            studentNumber: $scope.studentNumber
+        }
+        
+	    $http.post('/getAllSubjects', data2).then(function(response) {
+	       $scope.content = response.data;
+           for(var i=0; i<response.data.length; i++) {
+	            var data3 = { 
+	                id: $scope.content[i].id,
+                    studentNumber: $scope.studentNumber,
+                    year: $scope.content[i].year,
+                    semester: $scope.content[i].semester,
+		            course: $scope.content[i].course,
+		            title: $scope.content[i].title,
+		            units: $scope.content[i].units
+                }
+                
+                $http.post('/insertData', data3).then(function(response) {
+                   
+                }, function(response) {
+                    $scope.content = "Something went wrong";
+                });
+           }
+        }, function(response) {
+            $scope.content = "Something went wrong";
+        });
+        
            return Materialize.toast("Successfully created student record!", 1000,"",
             function(){ window.location.href = "/student_record/student_record.html"; });
         }, function(response) {
             $scope.content = "Something went wrong";
         });
+        
+        
+        
     }; 
 	
 	$scope.searchStudent = function() {        

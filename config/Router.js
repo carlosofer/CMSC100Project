@@ -21,7 +21,10 @@ module.exports = function(router) {
 	router.post('/removeGrade', grade.remove);
 	
 	router.post('/getAllSubjects', pos.getAllSubjects);
+	router.post('/getPlanOfStudy', pos.getPlanOfStudy);
 	router.post('/getTotalUnits', pos.getTotalUnits);
+	router.post('/insertData', pos.insertData);
+	router.post('/updateCourse', pos.updateCourse);
 	
 	router.post('/generateTCG',generate.generateTCG);
 	router.get('/viewGraduating', generate.viewGraduating);

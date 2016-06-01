@@ -16631,14 +16631,15 @@ CREATE TABLE IF NOT EXISTS `grade` (
 --
 
 CREATE TABLE IF NOT EXISTS `plan_of_study` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `studentNumber` varchar(10) NOT NULL,
   `year` varchar(8) NOT NULL,
   `semester` tinyint(1) NOT NULL,
-  `type` varchar(16) NOT NULL,
   `course` varchar(8) NOT NULL,
+  `title` varchar(256) NOT NULL,
+  `units` float NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -16652,6 +16653,7 @@ CREATE TABLE IF NOT EXISTS `student` (
   `middleName` varchar(256) NOT NULL,
   `lastName` varchar(256) NOT NULL,
   `birthDate` date NOT NULL,
+  `sex` varchar(1) NOT NULL,
   `college` varchar(8) NOT NULL,
   `degree` varchar(32) NOT NULL,
   `major` varchar(32) NOT NULL,

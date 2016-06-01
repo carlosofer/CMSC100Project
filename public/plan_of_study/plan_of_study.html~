@@ -59,7 +59,7 @@
 					</form>
 				</div>
 				<div ng-show="rows.length">
-				    <h3 class="center"> Total Number of Units: {{ totalUnits }} </h3>
+				    <h4 class="center"> Total Number of Units: {{ totalUnits }} </h4>
 				</div>
 				<table class="highlight" style="width: 90%; margin-left: 5%;" ng-show="rows.length">
 					<thead>
@@ -69,6 +69,7 @@
 							<th data-field="course">Course</th>
 							<th data-field="course">Title</th>
 							<th data-field="course">Units</th>
+							<th data-field="action">Action</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -78,12 +79,35 @@
 							<td> {{rowContent.course}}</td>
 							<td> {{rowContent.title}}</td>
 							<td> {{rowContent.units}}</td>
+							<td><a class="btn waves-effect waves-light" ng-click="getDetails(rowContent)">Update</a></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
 		
+		<!-- Modal Structure -->
+        <div id="edit_course" class="modal">
+           <div class="modal-content">
+               <h3 class="center">Update Course</h3>
+                   <div class="input-field">
+                       <span>Course Title</span>
+                       <input placeholder="" type="text" required="" ng-model="titleNew" 
+                       ng-init="titleOld = ''" ng-focus="titleOld = titleNew"/>
+                   </div>
+                   <div class="input-field">
+                       <span>Units</span>
+                       <input type="text" placeholder="" required="" ng-model="unitsNew" 
+                       ng-init="unitsOld = ''" ng-focus="unitsOld = unitsNew"/>
+                   </div>
+           </div>
+           <div class="modal-footer">
+                   <button id="edit-button" type="submit" class="modal-action btn waves-light waves-effect" ng-click="updateCourse()">
+                       <i class="material-icons">done</i>
+                   </button>
+           </div>
+        </div>
+        
 		<!-- Modal Structures -->
 		<div id="modal1" class="modal">
 			<div class="modal-content">
