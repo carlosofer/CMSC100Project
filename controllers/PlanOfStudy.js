@@ -30,7 +30,20 @@ exports.getPlanOfStudy = function (req, res, next) {
 
 /* Retrieves total number of units of a student */
 exports.getTotalUnits = function (req, res, next) {
-     db.query("SELECT sum(c.units) as 'totalNumOfUnits' FROM curriculum_course cc, course c WHERE cc.course = c.code AND curriculum = (SELECT curriculum FROM student WHERE studentNumber = ?)",
+     db.query("SELECT studentNumber, sum(units) as 'totalNumOfUnits' FROM plan_of_study where studentNumber = ?",
+        [req.body.studentNumber],
+        function (err, rows) {
+            if (err) {
+                return next(err);
+            }
+
+            res.send(rows);
+    });
+} 
+
+/* Retrieves total number of units earned by a student */
+exports.getUnitsEarned = function (req, res, next) {
+     db.query("select studentNumber, sum(units) as 'unitsEarned' from grade where studentNumber = ? and grade != '5.00'",
         [req.body.studentNumber],
 
         function (err, rows) {

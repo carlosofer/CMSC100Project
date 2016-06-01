@@ -53,7 +53,7 @@
 					                    var status = 0;
 					                }
 					                
-                                    if(status == $scope.statusS) {
+                                    if((status == $scope.statusS) || ($scope.statusS == 8 && status != 0)) {
                                         $scope.rows.push({
                                         'studentNumber': $scope.content2[0].studentNumber,
                                         'firstName': firstName,

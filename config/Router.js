@@ -25,13 +25,14 @@ module.exports = function(router) {
 	router.post('/getAllSubjects', pos.getAllSubjects);
 	router.post('/getPlanOfStudy', pos.getPlanOfStudy);
 	router.post('/getTotalUnits', pos.getTotalUnits);
+	router.post('/getUnitsEarned', pos.getUnitsEarned);
 	router.post('/insertData', pos.insertData);
 	router.post('/updateCourse', pos.updateCourse);
 	
 	router.post('/generateTCG',generate.generateTCG);
 	router.get('/viewGraduating', generate.viewGraduating);
 	router.post('/generateDelinquent', generate.generateDelinquent);
-	router.post('/generateChecklist', generate.generateChecklist);
+	//router.post('/generateChecklist', generate.generateChecklist);
 	
 	return router;
 };

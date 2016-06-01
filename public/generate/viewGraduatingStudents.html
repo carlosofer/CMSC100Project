@@ -19,23 +19,55 @@
 		<script>
 			var app = angular.module("myApp", []);
 			
-			app.controller("myCtrl", function($scope, $http){
-				$scope.rows = [];
-			
-			    $http.get("/viewGraduating").then(function(response){
-				    $scope.content = response.data;
-				
-				    for(var i=0; i<response.data.length; i++){
-					    $scope.rows.push({
-						    'studentNumber': $scope.content[i].studentNumber,
-						    'firstName': $scope.content[i].firstName,
-						    'middleName': $scope.content[i].middleName,
-						    'lastName': $scope.content[i].lastName
-					    });
-				    }
-			    }, function(response){
-				    $scope.content = "Error.";
-			    });
+			app.controller("myCtrl", function($scope, $http){	
+			        $scope.rows = [];
+			        
+			        $http.get("/getStudents").then(function(response){
+					    $scope.content = response.data;
+			        
+					    for(var i=0; i<response.data.length; i++){
+					        var data = {
+                            	studentNumber: $scope.content[i].studentNumber,
+                            }	
+                            
+                            var firstName = $scope.content[i].firstName;
+                            var middleName = $scope.content[i].middleName;
+                            var lastName = $scope.content[i].lastName;
+                            
+						    $http.post("/getTotalUnits", data).then(function(response){
+					            $scope.content2 = response.data;
+                                
+					            var data2 = {
+                                	studentNumber: $scope.content2[0].studentNumber,
+                                }	
+
+					            var totalNumOfUnits = $scope.content2[0].totalNumOfUnits;
+					            
+					            $http.post("/getUnitsEarned", data2).then(function(response){
+					                $scope.content3 = response.data;
+					                    
+					                var unitsEarned = ($scope.content3[0].unitsEarned == null)? 0 : $scope.content3[0].unitsEarned ;
+
+					                if((totalNumOfUnits - unitsEarned) <= 21) {
+					                    $scope.rows.push({
+                                        'studentNumber': $scope.content3[0].studentNumber,
+                                        'firstName': firstName,
+                                        'middleName': middleName,
+                                        'lastName': lastName
+                                     });   
+					                
+					                }
+					            }, function(response){
+                                    alert('error');
+				                });    
+				            }, function(response){
+                                alert('error');
+					            $scope.content = "Error.";
+				            });
+					    }
+				    }, function(response){
+					    $scope.content = "Error.";
+				    });
 			});
 		</script>
 	</head>
