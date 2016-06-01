@@ -88,7 +88,6 @@ exports.update = function (req, res, next) {
 
 /* Removes a grade from the database */
 exports.remove = function (req, res, next) {
-    console.log(req.body.id);
     db.query('DELETE FROM grade WHERE id = ?', [req.body.id], 
         function (err, rows) {
             if (err) {
@@ -98,6 +97,19 @@ exports.remove = function (req, res, next) {
             if (!rows.affectedRows) {
                 res.send(400, "Error: No student was deleted.");
             }
+
+            res.send(rows);
+    });
+}
+
+/* Computes the GPA of a student */
+exports.computeGPA = function (req, res, next) {
+    db.query('select studentNumber, sum(units*grade)/sum(units) as "gwa" from grade where studentNumber = ? and year = ? and semester = ?',
+        [req.body.studentNumber, req.body.year, req.body.semester], 
+        function (err,rows) {
+            if (err) {
+                return next(err);
+            }   
 
             res.send(rows);
     });

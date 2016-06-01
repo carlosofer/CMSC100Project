@@ -13,12 +13,14 @@ module.exports = function(router) {
 	router.post('/updateStudent', student.edit);
 	router.get('/getStudents', student.retrieve);
 	router.post('/listStudents', student.list);
+	router.post('/updateStatus', student.updateStatus);
 	
 	router.get('/getGrades', grade.viewAll);
 	router.post('/createGrade', grade.create);
 	router.post('/retrieveGrade', grade.retrieve);
 	router.post('/updateGrade', grade.update);
 	router.post('/removeGrade', grade.remove);
+	router.post('/computeGPA', grade.computeGPA);
 	
 	router.post('/getAllSubjects', pos.getAllSubjects);
 	router.post('/getPlanOfStudy', pos.getPlanOfStudy);

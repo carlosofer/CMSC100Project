@@ -67,6 +67,17 @@ exports.archive = function(req, res, next) {
         });
 }
 
+exports.updateStatus = function(req, res, next) {
+	db.query("UPDATE student SET status = ? WHERE studentNumber = ?",
+        [req.body.status, req.body.studentNumber],
+        function (err, rows) {
+            if (err) {
+                return next(err);
+            }
+            res.send(rows);
+        });
+}
+
 exports.search = function(req, res, next) {
     var query = "";
     if(req.body.studentNumber != null) {

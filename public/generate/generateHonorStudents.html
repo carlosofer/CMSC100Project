@@ -2,7 +2,7 @@
 <html ng-app="myApp">
 
 	<head>
-		<title>SIRS | Generate Delinquent Students</title>
+		<title>SIRS | Generate Honor Students</title>
 		<meta charset="UTF-8" />
 		<!-- MOBILE SCALING -->
 		<meta name="viewport" content="width=device-width, maximum-scale=1.0, minumum-scale=1.0, initial-scale=1.0" />
@@ -20,26 +20,53 @@
 			var app = angular.module("myApp", []);
 			
 			app.controller("myCtrl", function($scope, $http){
-				$scope.rows = [];
-			
-			    $scope.generateDelinquent = function() {
-                    var data = {
-                    	year: $scope.yearS,
-                    	semester: $scope.semesterS,
-                    	status: $scope.statusS
-                    }	
-                    
-				    $http.post("/generateDelinquent")
-				    .then(function(response){
+                $scope.rows = [];		
+                
+			    $scope.getAllStudents = function() {
+			        $scope.rows = [];
+			        
+			        $http.get("/getStudents").then(function(response){
 					    $scope.content = response.data;
-					
+			        
 					    for(var i=0; i<response.data.length; i++){
-						    $scope.rows.push({
-							    'studentNumber': $scope.content[i].studentNumber,
-							    'firstName': $scope.content[i].firstName,
-							    'middleName': $scope.content[i].middleName,
-							    'lastName': $scope.content[i].lastName
-						    });
+					        var data = {
+                            	studentNumber: $scope.content[i].studentNumber,
+                            	year: $scope.yearS,
+                            	semester: $scope.semesterS
+                            }	
+						    var firstName = $scope.content[i].firstName;
+                            var middleName = $scope.content[i].middleName;
+                            var lastName = $scope.content[i].lastName;
+						    $http.post("/computeGPA", data).then(function(response){
+					            $scope.content2 = response.data;
+					            if($scope.content2[0].gwa != null) {
+					                if($scope.content2[0].gwa < 1.4501) {
+					                   var status = 3;
+					                   var remarks = "University Scholar";
+					                } else if($scope.content2[0].gwa < 1.75) {
+					                    var status = 2;
+					                    var remarks = "College Scholar";
+					                } else if($scope.content2[0].gwa < 2.00) {
+					                    var status = 1;
+					                    var remarks = "Honor Roll";
+					                } else {
+					                    var status = 0;
+					                }
+					                
+                                    if((status == $scope.statusS) || ($scope.statusS == 8 && status != 0)) {
+                                        $scope.rows.push({
+                                        'studentNumber': $scope.content2[0].studentNumber,
+                                        'firstName': firstName,
+                                        'middleName': middleName,
+                                        'lastName': lastName,
+                                        'remarks': remarks
+                                     });   
+                                    }
+					            }
+				            }, function(response){
+                                alert('error');
+					            $scope.content = "Error.";
+				            });
 					    }
 				    }, function(response){
 					    $scope.content = "Error.";
@@ -84,11 +111,11 @@
 
 		<div class="main" style="float: left; height: auto; width: 70%; position:absolute; margin: 10px 10px 10px 25%;">
 			<div id="generateDelinquent" class="div" style="background-color: #FFFFFF; padding: 20px; width:100%;">
-				<h4>Generate Delinquent Students</h4>
+				<h4>Generate Honor Students</h4>
 				<div class="row">
 					<form class="col s12">
 						<div class="row">
-							<div class="input-field col s3">
+							<div class="input-field col s2">
 								<input id="yearTaken" type="text" class="validate" ng-model="yearS">
 								<label for="yearTaken">Year:</label>
 							</div>
@@ -99,13 +126,13 @@
 							</div>
 						    <div class="input-field col s3">
 								<label for="status">Status:</label><br/>
-								<input ng-model="statusS" type="radio" id="status1" value="5"/><label for="status1">Honor Roll</label></br>
-								<input ng-model="statusS" type="radio" id="status2" value="6"/><label for="status2">College Scholar</label></br>
-								<input ng-model="statusS" type="radio" id="status3" value="7"/><label for="status3">University Scholar</label></br>
+								<input ng-model="statusS" type="radio" id="status1" value="1"/><label for="status1">Honor Roll</label></br>
+								<input ng-model="statusS" type="radio" id="status2" value="2"/><label for="status2">College Scholar</label></br>
+								<input ng-model="statusS" type="radio" id="status3" value="3"/><label for="status3">University Scholar</label></br>
 								<input ng-model="statusS" type="radio" id="status4" value="8"/><label for="status4">All Honor Students</label></br>
 							</div>
-							<div class="input-field col s3">
-								<a class="btn waves-effect waves-light" ng-click="generateDelinquent()"><i class="material-icons right">trending_flat</i>Generate</a>
+							<div class="input-field col s4">
+								<a class="btn waves-effect waves-light" ng-click="getAllStudents()">Generate<i class="material-icons right">trending_flat</i></a>
 							</div>
 					</form>
 				<table ng-show="rows.length">
@@ -115,6 +142,7 @@
 							<th data-field="firstname">First Name</th>
 							<th data-field="middlename">Middle Name</th>
 							<th data-field="lastname">Last Name</th>
+							<th data-field="remarks">Remarks</th>
 						</tr>
 					</thead>
 
@@ -124,6 +152,7 @@
 							<td>{{rowContent.firstName}}</td>
 							<td>{{rowContent.middleName}}</td>
 							<td>{{rowContent.lastName}}</td>
+							<td>{{rowContent.remarks}}</td>
 						</tr>
 					</tbody>
 				</table>

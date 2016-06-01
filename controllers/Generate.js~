@@ -16,7 +16,7 @@ exports.generateTCG = function (req, res, next) {
 
 /* Generates list of graduating students */
 exports.viewGraduating = function (req, res, next) {
-    db.query("SELECT * FROM student where status = '3'", 
+    db.query("SELECT * FROM student where status = '4'", 
         function (err, rows) {
         if (err) {
             return next(err);
