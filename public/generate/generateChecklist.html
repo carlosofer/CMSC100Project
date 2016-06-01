@@ -1,6 +1,5 @@
 <!DOCTYPE HTML>
-<html>
-
+<html ng-app="myApp">
 	<head>
 		<title>SIRS | Generate Checklist</title>
 		<meta charset="UTF-8" />
@@ -16,9 +15,10 @@
 
 		<!-- CUSTOM CSS -->
 		<link rel="stylesheet" type="text/css" href="../css/custom.css" />
+		<script src="../js/angular.min.js"></script>
 	</head>
 
-	<body style="background-color: #fafafa">
+	<body style="background-color: #fafafa" ng-controller="myCtrl">
 
 		<!-- NAVIGATION -->
 		<nav role="navigation" class="blue">
@@ -28,55 +28,71 @@
 				<ul class="right hide-on-med-and-down">
 					<li><a href="../student_record/student_record.html">Student Records</a></li>
 					<li><a href="../plan_of_study/plan_of_study.html">Plan of Study</a></li>
-					<li><a href="../grade/createGrade.html">Grades</a></li>
+					<li><a href="../grade/grade.html">Grades</a></li>
 					<li class="active"><a href="generateTCG.html">Generate Lists</a></li>
 					<li><a class="modal-trigger" href="#modal1">Sign out</a></li>
 				</ul>
 				<ul id="nav-mobile" class="side-nav">
 					<li><a class="center" href="../student_record/student_record.html">Student Records</a></li>
 					<li><a class="center" href="../plan_of_study/plan_of_study.html">Plan of Study</a></li>
-					<li><a class="center" href="../grade/createGrade.html">Grades</a></li>
-					<li ><a class="center" href="generateTCG.html">Generate Lists</a></li>
+					<li><a class="center" href="../grade/grade.html">Grades</a></li>
+					<li><a class="center" href="generateTCG.html">Generate Lists</a></li>
 					<li><a class="center modal-trigger" href="#modal1">Sign out</a></li>
 				</ul>
 				<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
 			</div>
 		</nav>
 
-		<div class="collection" style=" float: left; width: 25%; margin: 20px 20px 20px 20px; position: fixed;">
-			<a href="generateLists.html" data-val="generateTCG" class="collection-item link" id="generateTCG-link">Generate TCG</a>
+		<div class="collection" style=" float: left; width: 22%; margin: 20px 20px 20px 20px; position: fixed;">
+			<a href="generateTCG.html" data-val="generateTCG" class="collection-item link" id="generateTCG-link">Generate TCG</a>
 			<a href="generateChecklist.html" data-val="generateChecklist" class="collection-item link active" id="generateChecklist-link">Generate Checklist</a>
 			<a href="generateDelinquentStudents.html" data-val="generateDelinquentStudents" class="collection-item link" id="generateDelinquentStudents-link">Generate Delinquent Students</a>
 			<a href="generateHonorStudents.html" data-val="generateHonorStudents" class="collection-item link" id="generateHonorStudents-link">Generate Honor Students</a>
-			<a href="generateGraduatingStudents.html" data-val="generateGraduatingStudents" class="collection-item link" id="generateGraduatingStudents-link">Generate Graduating Students</a>
+			<a href="viewGraduatingStudents.html" data-val="generateGraduatingStudents" class="collection-item link" id="generateGraduatingStudents-link">View Graduating Students</a>
         </div>
 
-		<div class="main" style="float: left; height: auto; width: 70%; position:absolute; margin: 10px 10px 10px 28%;">
-
-			<div id="generateTCG" class="div" style="background-color: #FFFFFF; padding: 20px; width:100%;">
+		<div class="main" style="float: left; height: auto; width: 70%; position:absolute; margin: 10px 10px 10px 25%;">
+			<div id="generateTCG" class="div" style="background-color: #FFFFFF; padding: 20px; width: auto;">
 				<h4>Generate Checklist</h4>
-
-				<table class="highlight" style="width: 100%;">
-
+				<div class="row">
+					<form class="col s12">
+						<div class="row">
+							<div class="input-field col s3">
+								<input id="snumTCG" type="text" class="validate" ng-model="studentNumberS">
+								<label for="snumTCG">Student Number:</label>
+							</div>
+							<div class="input-field col s3">
+								<button ng-disabled="clicked" ng-click="getAllSubjects()" class="btn waves-effect waves-light" type="submit" name="action">Generate <i class="material-icons right">send</i></button>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div ng-show="rows.length">
+				    <h4 class="center"> Total Number of Units: {{ totalUnits }} </h4>
+				</div>
+				<table class="highlight" style="width: 90%; margin-left: 5%;" ng-show="rows.length">
 					<thead>
-						
 						<tr>
-							<th></th>
-							<th></th>
+							<th data-field="year">Year</th>
+							<th data-field="semester">Semester</th>
+							<th data-field="course">Course</th>
+							<th data-field="title">Title</th>
+							<th data-field="units">Units</th>
+							<th data-field="grade">Grade</th>
 						</tr>
 					</thead>
-
 					<tbody>
-						<tr>
-							<td></td>
-							<td></td>
+						<tr ng-repeat="rowContent in rows">
+							<td> {{rowContent.year}}</td>
+							<td> {{rowContent.semester}}</td>
+							<td> {{rowContent.course}}</td>
+							<td> {{rowContent.title}}</td>
+							<td> {{rowContent.units}}</td>
+							<td> {{rowContent.grade}}</td>
 						</tr>
 					</tbody>
-
 				</table>
-
 			</div>
-
 		</div>
 
 		<!-- Modal Structures -->
@@ -104,5 +120,44 @@
 				
 			});
 		</script>
+		
+		<script>
+            var app = angular.module("myApp", []);
+
+            app.controller("myCtrl", function($scope, $http) {
+                $scope.rows = [];
+                
+                $scope.getAllSubjects = function() {
+                    var data = { 
+                        studentNumber: $scope.studentNumberS
+                    }
+                    
+	                $http.post('/generateChecklist', data).then(function(response) {
+	                   $scope.content = response.data;
+                       for(var i=0; i<response.data.length; i++) {
+                            $scope.rows.push({
+                                'year': $scope.content[i].year,
+                                'semester': $scope.content[i].semester,
+		                        'course': $scope.content[i].course,
+		                        'title': $scope.content[i].title,
+		                        'units': $scope.content[i].units,
+		                        'id': $scope.content[i].id,
+		                        'grade': $scope.content[i].grade
+	                        });
+                       }
+                    }, function(response) {
+                        $scope.content = "Something went wrong";
+                    });
+                    
+                    $http.post('/getTotalUnits', data).then(function(response) {
+	                   $scope.totalUnits = response.data[0].totalNumOfUnits;
+                       
+                    }, function(response) {
+                        $scope.content = "Something went wrong";
+                    });
+                }; 
+            });
+        </script>
+        
 	</body>
 </html>

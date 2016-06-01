@@ -52,3 +52,17 @@ exports.generateDelinquent = function (req, res, next) {
 	}
 }
 
+/* Generates checklist of student with input student number */
+exports.generateChecklist = function (req, res, next) {
+	db.query("SELECT distinct poc.id, poc.year,poc.semester,poc.course,poc.title,poc.units,g.grade FROM plan_of_study poc left join grade g on poc.course = g.course WHERE poc.studentNumber = ?",
+        [req.body.studentNumber],
+
+        function (err, rows) {
+            if (err) {
+                return next(err);
+            }
+
+            res.send(rows);
+            console.log(rows);
+    });
+}
