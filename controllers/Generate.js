@@ -52,3 +52,15 @@ exports.generateDelinquent = function (req, res, next) {
 	}
 }
 
+/* Generates checklist of student with input student number */
+exports.generateChecklist = function (req, res, next) {
+	db.query("SELECT * FROM grade WHERE studentNumber = ?",
+		[req.body.studentNumber],
+		function (err, rows) {
+		        if (err) {
+		            return next(err);
+		        }
+
+		        res.send(rows);
+		});
+}
